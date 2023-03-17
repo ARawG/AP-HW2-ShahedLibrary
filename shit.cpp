@@ -602,6 +602,7 @@ public:
         vector<int> distances;
         vector<Library> libraries;
         int distance;
+        string str;
         for (int i = 0; i = this->libraries.size(); i++)
         {
             if (this->libraries[i].IsAvailableBook(name))
@@ -632,5 +633,10 @@ public:
                 Swap(&libraries[i], &libraries[j + 1]);
             }
         }
+        for (int i = 0; i < libraries.size(); i++)
+        {
+            str += (i + 1) + ". " + libraries[i].NameOfLibrary() + " " + distances[i] + "\n";
+        }
+        return str;
     }
 };
