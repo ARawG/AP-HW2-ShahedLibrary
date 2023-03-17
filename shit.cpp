@@ -569,10 +569,55 @@ public:
                 }
             }
         }
-        if(!IsAvailable){
-            return -1;
+        try
+        {
+            if (IsAvailable)
+            {
+                return bestlib;
+            }
+            else
+            {
+                throw 0;
+            }
         }
-        return bestlib;
+        catch (int a)
+        {
+            cout << "Not found!";
+        }
     }
-    
+    void Swap(int *a, int *b)
+    {
+        int temp = *a;
+        *a = *b;
+        *b = temp;
+    }
+    void Swap(LIbrary *a, Library *b)
+    {
+        Library temp;
+        *a = *b;
+        *b = temp;
+    }
+    string findLibraryHaveBook(string name, int position)
+    {
+        vector<int> distances;
+        vector<Library> libraries = this->libraries;
+        int distance;
+        for (int i = 0; i < libraries.size(); i++)
+        {
+            distance = position - libraries[i].PositionOfLibrary();
+            if (distance < 0)
+            {
+                distance *= -1;
+            }
+            distances.push_back(distance);
+        }
+        for (int j = 0; j < distances.size() - 1; j++)
+        {
+            if (distances[j] > distances[j + 1])
+            {
+                Swap(&distances[j], &distances[j + 1]);
+                Swap(&libraries[i], &libraries[j + 1]);
+            }
+        }
+    }
 };
