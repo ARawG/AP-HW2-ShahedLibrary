@@ -600,11 +600,24 @@ public:
     string findLibraryHaveBook(string name, int position)
     {
         vector<int> distances;
-        vector<Library> libraries = this->libraries;
+        vector<Library> libraries;
         int distance;
+        for (int i = 0; i = this->libraries.size(); i++)
+        {
+            if (this->libraries[i].IsAvailableBook(name))
+            {
+                libraries.push_back(this->libraries[i]);
+                distance = position - this->libraries[i].PositionOfLibrary();
+                if (distance < 0)
+                {
+                    distance *= -1;
+                }
+                distances.push_back(distance);
+            }
+        }
         for (int i = 0; i < libraries.size(); i++)
         {
-            distance = position - libraries[i].PositionOfLibrary();
+
             if (distance < 0)
             {
                 distance *= -1;
