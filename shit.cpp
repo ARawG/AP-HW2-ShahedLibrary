@@ -113,63 +113,6 @@ public:
     }
 };
 
-class Member
-{
-private:
-    string id;
-    string name;
-    vector<Book> books;
-    Library lib;
-    vector<Book> LibBooks = lib.BookReturn();
-
-public:
-    Member(string id, string name)
-    {
-        this->id = id;
-        this->name = name;
-    }
-    bool operator==(Member member)
-    {
-        if (member.name == this->name && member.id == this->id)
-        {
-            return true;
-        }
-        return false;
-    }
-    void AddBook(Book book)
-    {
-        books.push_back(book);
-    }
-    int BorrowedBookCount()
-    {
-        return books.size();
-    }
-    string IdReturner()
-    {
-        return id;
-    }
-    Book BookReturnByName(string name)
-    {
-        for (int i = 0; i < books.size(); i++)
-        {
-            if (name == books[i].NameOfBook())
-            {
-                return books[i];
-            }
-        }
-    }
-    void DeleteBookByName(string name)
-    {
-        for (int i = 0; i < books.size(); i++)
-        {
-            if (name == books[i].NameOfBook())
-            {
-                books.erase(books.begin() + i);
-            }
-        }
-    }
-};
-
 class Library
 {
 private:
@@ -253,6 +196,7 @@ public:
             books[i].showInfo();
         }
     }
+
     void AddBook(Book book)
     {
         books.push_back(book);
@@ -319,6 +263,64 @@ public:
         return false;
     }
 };
+class Member
+{
+private:
+    string id;
+    string name;
+    vector<Book> books;
+    Library lib;
+    vector<Book> LibBooks = lib.BookReturn();
+
+public:
+    Member(string id, string name)
+    {
+        this->id = id;
+        this->name = name;
+    }
+    bool operator==(Member member)
+    {
+        if (member.name == this->name && member.id == this->id)
+        {
+            return true;
+        }
+        return false;
+    }
+    void AddBook(Book book)
+    {
+        books.push_back(book);
+    }
+    int BorrowedBookCount()
+    {
+        return books.size();
+    }
+    string IdReturner()
+    {
+        return id;
+    }
+    Book BookReturnByName(string name)
+    {
+        for (int i = 0; i < books.size(); i++)
+        {
+            if (name == books[i].NameOfBook())
+            {
+                return books[i];
+            }
+        }
+    }
+    void DeleteBookByName(string name)
+    {
+        for (int i = 0; i < books.size(); i++)
+        {
+            if (name == books[i].NameOfBook())
+            {
+                books.erase(books.begin() + i);
+            }
+        }
+    }
+};
+
+
 
 class LibrariesHandler
 {
@@ -442,7 +444,7 @@ public:
     {
         if (libId > LibId)
         {
-            return;
+            throw "you can't";
         }
         else
         {
@@ -488,6 +490,14 @@ public:
             if (members[i].IdReturner() == memberId)
             {
                 MemberIndex = i;
+            }
+        }
+        vector<Book> books;
+        books = libraries[libraryId].BookReturn();
+        for (int i = 0; i < books.size(); i++)
+        {
+            if (books[i].NameOfBook() == name)
+            {
                 IsAvailable = true;
             }
         }
@@ -591,7 +601,7 @@ public:
         *a = *b;
         *b = temp;
     }
-    void Swap(LIbrary *a, Library *b)
+    void Swap(Library *a, Library *b)
     {
         Library temp;
         *a = *b;
@@ -630,12 +640,15 @@ public:
             if (distances[j] > distances[j + 1])
             {
                 Swap(&distances[j], &distances[j + 1]);
-                Swap(&libraries[i], &libraries[j + 1]);
+                Swap(&libraries[j], &libraries[j + 1]);
             }
         }
         for (int i = 0; i < libraries.size(); i++)
         {
-            str += (i + 1) + ". " + libraries[i].NameOfLibrary() + " " + distances[i] + "\n";
+            string str,str1,str2;
+            str1 = to_string(i+1);
+            str2 = to_string(distances[i]);
+            str += str1 + ". " + libraries[i].NameOfLibrary() + " " + str2 + "\n";
         }
         return str;
     }
