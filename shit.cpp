@@ -2,6 +2,7 @@
 #include <vector>
 #include <string>
 #include <iterator>
+#include <limits>
 using namespace std;
 
 int PubId = 1, BookId = 1, LibId = 1;
@@ -557,7 +558,7 @@ public:
     Library findNearestLibraryByPosition(string name, int position)
     {
         bool IsAvailable = false;
-        int MinDistance = 100000, distance;
+        int MinDistance = numeric_limits<int>::max(), distance;
         Library library, bestlib;
         for (int i = 0; i < libraries.size(); i++)
         {
